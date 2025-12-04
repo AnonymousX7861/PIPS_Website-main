@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/database,js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+     <!-- Navigation Bar -->
+    <div style="margin-top: 120px; text-align: center; background: #f9f9f9; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: inline-block;">
+         <li style="display: inline; margin: 0 10px;"><a href="index.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Home</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="about.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">About Us </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="contact.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Contact</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="gallery.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Gallery</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="resources.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Resources </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="admissions.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Admissions </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="notice_board.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Notice Board</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="enquiry.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Enquiries </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="uniform_shop.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Uniform Shop</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="volunteer.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Volunteers & Sponsors</a></li>
+        </ul>
+    </div>    
+    <!-- Page Content -->
+    <div style="min-height: 100vh; background-color: #f8f9fa; padding-bottom: 80px;">
+     <div style="padding-top: 80px; text-align: center;">
+     <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+      <a href="admin.html" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); display: block; line-height: 0;"><img src="_images/logo.jpg" alt="logo" style="height: 45px; width: auto; max-width: 75px; object-fit: contain; display: block;"></a>
+       <h2 style="color: #FFD700; margin: 0; font-size: clamp(1.2rem, 4vw, 2rem);">Resources</h2>
+     </div>
+     
+     <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+         <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+             <h3 style="color: #000080; margin-top: 0;">📚 School Resources & Documents</h3>
+             <p style="color: #666;">Download forms and other important school documents.</p>
+         </div>
+
+         <!-- Resources List -->
+         <div id="resourcesList" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+             <p style="color: #666; text-align: center; padding: 20px;">Loading resources...</p>
+         </div>
+     </div>
+    </div>
+     </div>
+     
+     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; color: #000000; text-align: center; padding: 10px 0; z-index: 998; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);">
+     <hr style="margin: 0; border-color: #ffffff;"></hr>
+     <footer>
+        <p style="margin: 5px 0;">&copy; 2025 Pinetown Independent Primary School. All rights reserved.</p>
+      </footer>   
+     </div>
+
+    <script>
+        // Load and display resources from database
+        function loadResources() {
+            const uploadedFiles = FileDatabase.getAllFiles();
+            const resourcesList = document.getElementById('resourcesList');
+            
+            if (uploadedFiles.length === 0) {
+                resourcesList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No resources available at this time. Please check back later.</p>';
+                return;
+            }
+
+            // Group files by category
+            const categories = FileDatabase.getCategories();
+
+            let html = '';
+            for (const category in categories) {
+                html += `
+                    <div style="margin-bottom: 40px;">
+                        <h4 style="color: #000080; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #000080;">📂 ${category}</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                `;
+                
+                categories[category].forEach(file => {
+                    const fileSize = (file.size / 1024).toFixed(2);
+                    const fileIconData = getFileIconData(file.originalName);
+                    
+                    html += `
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; border: 2px solid #ddd; transition: all 0.3s; cursor: pointer; display: flex; flex-direction: column; align-items: center;" 
+                             onmouseover="this.style.borderColor='#000080'; this.style.boxShadow='0 4px 12px rgba(0,0,128,0.2)'" 
+                             onmouseout="this.style.borderColor='#ddd'; this.style.boxShadow='none'">
+                            <div style="font-size: 60px; margin-bottom: 15px;">${fileIconData.icon}</div>
+                            <div style="font-weight: bold; color: #333; margin-bottom: 8px; font-size: 14px; word-wrap: break-word; width: 100%;">${file.name}</div>
+                            <div style="font-size: 11px; color: #666; margin-bottom: 5px;">${fileIconData.type}</div>
+                            <div style="font-size: 11px; color: #999; margin-bottom: 15px;">${fileSize} KB</div>
+                            <button onclick="downloadResource(${file.id})" 
+                                    style="background: #000080; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; width: 100%;">
+                                ⬇️ Download
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                html += '</div></div>';
+            }
+            
+            resourcesList.innerHTML = html;
+        }
+
+        function getFileIcon(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': '📄',
+                'doc': '📝',
+                'docx': '📝',
+                'xls': '📊',
+                'xlsx': '📊',
+                'ppt': '📊',
+                'pptx': '📊',
+                'txt': '📃',
+                'jpg': '🖼️',
+                'jpeg': '🖼️',
+                'png': '🖼️'
+            };
+            return icons[ext] || '📎';
+        }
+
+        function getFileIconData(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            const fileTypes = {
+                'pdf': { icon: '📄', type: 'PDF Document' },
+                'doc': { icon: '📝', type: 'Word Document' },
+                'docx': { icon: '📝', type: 'Word Document' },
+                'xls': { icon: '📊', type: 'Excel Spreadsheet' },
+                'xlsx': { icon: '📊', type: 'Excel Spreadsheet' },
+                'ppt': { icon: '📊', type: 'PowerPoint' },
+                'pptx': { icon: '📊', type: 'PowerPoint' },
+                'txt': { icon: '📃', type: 'Text File' },
+                'jpg': { icon: '🖼️', type: 'Image (JPG)' },
+                'jpeg': { icon: '🖼️', type: 'Image (JPEG)' },
+                'png': { icon: '🖼️', type: 'Image (PNG)' }
+            };
+            return fileTypes[ext] || { icon: '📎', type: 'File' };
+        }
+
+        function downloadResource(fileId) {
+            const file = FileDatabase.getFileById(fileId);
+            
+            if (!file) {
+                alert('File not found.');
+                return;
+            }
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = file.data;
+            link.download = file.originalName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Load resources when page loads
+        window.addEventListener('load', loadResources);
+
+        // Refresh resources every 5 seconds to catch new uploads
+        setInterval(loadResources, 5000);
+    </script>
+</body>
+</html>

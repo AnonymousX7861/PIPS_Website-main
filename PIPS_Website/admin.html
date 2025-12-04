@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Pinetown Independent Primary School</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/database,js"></script>
+    <script src="js/admin-data-manager.js"></script>
+</head>
+<body>
+    <div id="loginSection" style="min-height: 100vh; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 20px rgba(0,0,0,0.1); max-width: 400px; width: 90%; text-align: center;">
+            <img src="_images/logo.jpg" alt="logo" style="height: 80px; width: auto; display: block !important; margin: 0 auto 20px auto !important; position: static !important; left: auto !important; top: auto !important; transform: none !important;">
+            <h2 style="color: #000080; margin: 0 0 30px 0; text-align: center;">Admin Access</h2>
+            <form onsubmit="return checkPassword(event)" style="text-align: center;">
+                <div style="margin-bottom: 20px;">
+                    <label for="password" style="display: block; color: #333; margin-bottom: 8px; font-weight: bold; text-align: center;">Password:</label>
+                    <input type="password" id="password" name="password" required 
+                           style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box; text-align: center;">
+                </div>
+                <div id="errorMessage" style="color: red; margin-bottom: 15px; display: none; text-align: center; font-weight: bold;">
+                    Incorrect password. Please try again.
+                </div>
+                <button type="submit" style="width: 100%; background: #000080; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminContent" style="display: none;">
+        <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+            <a href="index.html" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); display: block; line-height: 0;"><img src="_images/logo.jpg" alt="logo" style="height: 45px; width: auto; max-width: 75px; object-fit: contain; display: block;"></a>
+            <h2 style="color: #FFD700; margin: 0; font-size: clamp(1.2rem, 4vw, 2rem);">Admin Dashboard</h2>
+            <button onclick="logout()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #FFD700; color: #000080; padding: 8px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                Logout
+            </button>
+        </div>
+
+        <div style="min-height: 100vh; background-color: #f8f9fa; padding: 100px 20px 20px;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <h3 style="color: #000080; margin-top: 0;">Welcome to Admin Dashboard</h3>
+                    <p>Manage school content including contact information, gallery, notice board, and uniform shop.</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <button onclick="switchTab('resources')" id="tabResources" style="background: #000080; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Resources</button>
+                    <button onclick="switchTab('contact')" id="tabContact" style="background: #ddd; color: #333; padding: 12px 24px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Contact Info</button>
+                    <button onclick="switchTab('gallery')" id="tabGallery" style="background: #ddd; color: #333; padding: 12px 24px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Gallery</button>
+                    <button onclick="switchTab('notice')" id="tabNotice" style="background: #ddd; color: #333; padding: 12px 24px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Notice Board</button>
+                    <button onclick="switchTab('uniform')" id="tabUniform" style="background: #ddd; color: #333; padding: 12px 24px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Uniform Shop</button>
+                </div>
+
+                <!-- FILES/RESOURCES TAB -->
+                <div id="resourcesTab" class="admin-tab" style="display: block;">
+                <!-- File Upload Section -->
+                <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <h3 style="color: #000080; margin-top: 0;">📤 Upload New Resource/Document</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Upload documents, forms, and resources that will appear on the Resources page.</p>
+                    <form id="uploadForm" onsubmit="return uploadFile(event)">
+                        <div style="margin-bottom: 15px;">
+                            <label for="fileName" style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Document Name/Description:</label>
+                            <input type="text" id="fileName" name="fileName" required 
+                                   placeholder="e.g., Registration Form 2025, School Handbook"
+                                   style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <label for="fileCategory" style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Category:</label>
+                            <select id="fileCategory" name="fileCategory" required
+                                    style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                                <option value="">Select Category</option>
+                                <option value="Forms">Forms</option>
+                                <option value="Resources">Resources</option>
+                                <option value="Handbooks">Handbooks</option>
+                                <option value="Policies">Policies</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <label for="fileUpload" style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Select File:</label>
+                            <input type="file" id="fileUpload" name="fileUpload" required 
+                                   accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png"
+                                   style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; box-sizing: border-box;">
+                            <small style="color: #666; display: block; margin-top: 5px;">Accepted: PDF, Word, Excel, PowerPoint, Images, Text files</small>
+                        </div>
+                        <button type="submit" style="background: #000080; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                            Upload Document
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Uploaded Files Section -->
+                <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="color: #000080; margin-top: 0;">📁 Published Resources & Documents</h3>
+                    <p style="color: #666; margin-bottom: 20px;">These documents are visible on the Resources page.</p>
+                    <div id="filesList">
+                        <p style="color: #666; text-align: center; padding: 20px;">No documents uploaded yet. Upload your first document above.</p>
+                    </div>
+                </div>
+                </div>
+
+                <!-- CONTACT INFO TAB -->
+                <div id="contactTab" class="admin-tab" style="display: none;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #000080; margin-top: 0;">📞 Manage Contact Information</h3>
+                        <form id="contactForm" onsubmit="return saveContactInfo(event)">
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Email:</label>
+                                <input type="email" id="contactEmail" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Phone:</label>
+                                <input type="text" id="contactPhone" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <h4 style="color: #000080; margin-bottom: 10px;">Address:</h4>
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Street:</label>
+                                <input type="text" id="contactStreet" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box; margin-bottom: 10px;">
+                                
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">City:</label>
+                                <input type="text" id="contactCity" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box; margin-bottom: 10px;">
+                                
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Postal Code:</label>
+                                <input type="text" id="contactPostal" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box; margin-bottom: 10px;">
+                                
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Country:</label>
+                                <input type="text" id="contactCountry" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <button type="submit" style="background: #28a745; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                Save Contact Info
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- GALLERY TAB -->
+                <div id="galleryTab" class="admin-tab" style="display: none;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <h3 style="color: #000080; margin-top: 0;">🖼️ Add Gallery Image</h3>
+                        <form id="galleryForm" onsubmit="return addGalleryImage(event)">
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Image Description/Alt Text:</label>
+                                <input type="text" id="galleryAlt" required placeholder="e.g., School Sports Day 2025" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Select Image:</label>
+                                <input type="file" id="galleryImage" required accept="image/*" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <button type="submit" style="background: #000080; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                Add Image
+                            </button>
+                        </form>
+                    </div>
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #000080; margin-top: 0;">Gallery Images</h3>
+                        <div id="galleryImagesList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;"></div>
+                    </div>
+                </div>
+
+                <!-- NOTICE BOARD TAB -->
+                <div id="noticeTab" class="admin-tab" style="display: none;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <h3 style="color: #000080; margin-top: 0;">📋 Manage Notice Board</h3>
+                        
+                        <!-- Events Section -->
+                        <div style="margin-bottom: 30px; padding: 20px; border: 2px solid #28a745; border-radius: 8px;">
+                            <h4 style="color: #28a745; margin-top: 0;">📅 Events</h4>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="newEvent" placeholder="Add new event..." style="width: calc(100% - 120px); padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                                <button onclick="addNoticeItem('events')" style="width: 110px; background: #28a745; color: white; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-left: 10px;">Add</button>
+                            </div>
+                            <div id="eventsList"></div>
+                        </div>
+
+                        <!-- News Section -->
+                        <div style="margin-bottom: 30px; padding: 20px; border: 2px solid #17a2b8; border-radius: 8px;">
+                            <h4 style="color: #17a2b8; margin-top: 0;">📰 News</h4>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="newNews" placeholder="Add news item..." style="width: calc(100% - 120px); padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                                <button onclick="addNoticeItem('news')" style="width: 110px; background: #17a2b8; color: white; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-left: 10px;">Add</button>
+                            </div>
+                            <div id="newsList"></div>
+                        </div>
+
+                        <!-- Reminders Section -->
+                        <div style="padding: 20px; border: 2px solid #ffc107; border-radius: 8px;">
+                            <h4 style="color: #856404; margin-top: 0;">⚠️ Reminders</h4>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="newReminder" placeholder="Add reminder..." style="width: calc(100% - 120px); padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                                <button onclick="addNoticeItem('reminders')" style="width: 110px; background: #ffc107; color: #000; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-left: 10px;">Add</button>
+                            </div>
+                            <div id="remindersList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNIFORM SHOP TAB -->
+                <div id="uniformTab" class="admin-tab" style="display: none;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <h3 style="color: #000080; margin-top: 0;">👕 Add Uniform Item</h3>
+                        <form id="uniformForm" onsubmit="return addUniformItem(event)">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                                <div>
+                                    <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Gender:</label>
+                                    <select id="uniformGender" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                                        <option value="">Select Gender</option>
+                                        <option value="boys">Boys</option>
+                                        <option value="girls">Girls</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Category:</label>
+                                    <select id="uniformCategory" required style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                                        <option value="">Select Category</option>
+                                        <option value="summer">Summer</option>
+                                        <option value="winter">Winter</option>
+                                        <option value="sports">Sports</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Item Name:</label>
+                                <input type="text" id="uniformName" required placeholder="e.g., Navy blue shorts" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; color: #333; margin-bottom: 8px; font-weight: bold;">Price (R):</label>
+                                <input type="number" id="uniformPrice" required placeholder="150" min="0" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; box-sizing: border-box;">
+                            </div>
+                            <button type="submit" style="background: #000080; color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                                Add Item
+                            </button>
+                        </form>
+                    </div>
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: #000080; margin-top: 0;">Current Uniform Items</h3>
+                        <div id="uniformItemsList"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize files array from database
+        let uploadedFiles = FileDatabase.getAllFiles();
+
+        function checkPassword(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const correctPassword = 'Salnakmun786';
+            
+            if (password === correctPassword) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                displayFiles();
+                loadContactInfo();
+                loadGalleryImages();
+                loadNoticeBoard();
+                loadUniformItems();
+                return false;
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('password').value = '';
+                return false;
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginSection').style.display = 'flex';
+            document.getElementById('adminContent').style.display = 'none';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // ============ TAB SWITCHING ============
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Reset all tab buttons
+            document.querySelectorAll('[id^="tab"]').forEach(btn => {
+                btn.style.background = '#ddd';
+                btn.style.color = '#333';
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            
+            // Highlight selected button
+            const buttonMap = {
+                'resources': 'tabResources',
+                'contact': 'tabContact',
+                'gallery': 'tabGallery',
+                'notice': 'tabNotice',
+                'uniform': 'tabUniform'
+            };
+            const selectedBtn = document.getElementById(buttonMap[tabName]);
+            selectedBtn.style.background = '#000080';
+            selectedBtn.style.color = 'white';
+        }
+
+        // ============ FILE MANAGEMENT ============
+        function uploadFile(event) {
+            event.preventDefault();
+            
+            const fileName = document.getElementById('fileName').value;
+            const fileCategory = document.getElementById('fileCategory').value;
+            const fileInput = document.getElementById('fileUpload');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a file to upload.');
+                return false;
+            }
+
+            // Read file as base64
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileData = {
+                    name: fileName,
+                    category: fileCategory,
+                    originalName: file.name,
+                    type: file.type,
+                    size: file.size,
+                    data: e.target.result
+                };
+
+                // Add file to database
+                const addedFile = FileDatabase.addFile(fileData);
+                
+                if (addedFile) {
+                    // Update local array
+                    uploadedFiles = FileDatabase.getAllFiles();
+                    
+                    // Reset form
+                    document.getElementById('uploadForm').reset();
+                    
+                    // Refresh file list
+                    displayFiles();
+                    
+                    alert('Document uploaded successfully! It will now appear on the Resources page.');
+                } else {
+                    alert('Error uploading document. Please try again.');
+                }
+            };
+            
+            reader.readAsDataURL(file);
+            return false;
+        }
+
+        function displayFiles() {
+            const filesList = document.getElementById('filesList');
+            
+            if (uploadedFiles.length === 0) {
+                filesList.innerHTML = '<p style="color: #666; text-align: center; padding: 20px;">No documents uploaded yet. Upload your first document above.</p>';
+                return;
+            }
+
+            // Group files by category
+            const categories = {};
+            uploadedFiles.forEach(file => {
+                if (!categories[file.category]) {
+                    categories[file.category] = [];
+                }
+                categories[file.category].push(file);
+            });
+
+            let html = '';
+            for (const category in categories) {
+                html += `
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: #000080; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #000080;">📂 ${category}</h4>
+                `;
+                
+                categories[category].forEach(file => {
+                    const fileSize = (file.size / 1024).toFixed(2);
+                    const fileIcon = getFileIcon(file.originalName);
+                    
+                    html += `
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 200px;">
+                                <div style="font-weight: bold; color: #333; margin-bottom: 5px;">${fileIcon} ${file.name}</div>
+                                <div style="font-size: 12px; color: #666;">
+                                    File: ${file.originalName} | Size: ${fileSize} KB | Uploaded: ${file.uploadDate}
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <button onclick="downloadFile(${file.id})" 
+                                        style="background: #28a745; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                                    ⬇️ Download
+                                </button>
+                                <button onclick="deleteFile(${file.id})" 
+                                        style="background: #dc3545; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                                    🗑️ Delete
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            
+            filesList.innerHTML = html;
+        }
+
+        function getFileIcon(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': '📄',
+                'doc': '📝',
+                'docx': '📝',
+                'xls': '📊',
+                'xlsx': '📊',
+                'ppt': '📊',
+                'pptx': '📊',
+                'txt': '📃',
+                'jpg': '🖼️',
+                'jpeg': '🖼️',
+                'png': '🖼️'
+            };
+            return icons[ext] || '📎';
+        }
+
+        function downloadFile(fileId) {
+            const file = FileDatabase.getFileById(fileId);
+            if (!file) {
+                alert('File not found.');
+                return;
+            }
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = file.data;
+            link.download = file.originalName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function deleteFile(fileId) {
+            if (!confirm('Are you sure you want to delete this file?')) {
+                return;
+            }
+
+            const success = FileDatabase.deleteFile(fileId);
+            if (success) {
+                uploadedFiles = FileDatabase.getAllFiles();
+                displayFiles();
+                alert('Document deleted successfully! It has been removed from the Resources page.');
+            } else {
+                alert('Error deleting document. Please try again.');
+            }
+        }
+
+        // ============ CONTACT INFO MANAGEMENT ============
+        function loadContactInfo() {
+            const data = AdminDataManager.ContactInfo.get();
+            document.getElementById('contactEmail').value = data.email;
+            document.getElementById('contactPhone').value = data.phone;
+            document.getElementById('contactStreet').value = data.address.street;
+            document.getElementById('contactCity').value = data.address.city;
+            document.getElementById('contactPostal').value = data.address.postal;
+            document.getElementById('contactCountry').value = data.address.country;
+        }
+
+        function saveContactInfo(event) {
+            event.preventDefault();
+            const data = {
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                address: {
+                    street: document.getElementById('contactStreet').value,
+                    city: document.getElementById('contactCity').value,
+                    postal: document.getElementById('contactPostal').value,
+                    country: document.getElementById('contactCountry').value
+                },
+                officeHours: AdminDataManager.ContactInfo.get().officeHours,
+                schoolHours: AdminDataManager.ContactInfo.get().schoolHours
+            };
+            
+            if (AdminDataManager.ContactInfo.save(data)) {
+                alert('Contact information saved successfully!');
+            } else {
+                alert('Error saving contact information.');
+            }
+            return false;
+        }
+
+        // ============ GALLERY MANAGEMENT ============
+        function loadGalleryImages() {
+            const images = AdminDataManager.Gallery.getAll();
+            const container = document.getElementById('galleryImagesList');
+            
+            if (images.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No images yet.</p>';
+                return;
+            }
+            
+            let html = '';
+            images.forEach(img => {
+                html += `
+                    <div style="border: 2px solid #ddd; border-radius: 8px; padding: 10px; position: relative;">
+                        <img src="${img.src}" alt="${img.alt}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22150%22%3E%3Crect fill=%22%23ddd%22 width=%22200%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3EImage%3C/text%3E%3C/svg%3E'">
+                        <p style="margin: 10px 0 5px; font-size: 12px; font-weight: bold; color: #333;">${img.alt}</p>
+                        <p style="margin: 0; font-size: 10px; color: #666;">${img.uploadDate}</p>
+                        <button onclick="deleteGalleryImage(${img.id})" style="width: 100%; background: #dc3545; color: white; padding: 8px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px;">Delete</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function addGalleryImage(event) {
+            event.preventDefault();
+            const altText = document.getElementById('galleryAlt').value;
+            const fileInput = document.getElementById('galleryImage');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select an image.');
+                return false;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = {
+                    src: e.target.result,
+                    alt: altText
+                };
+                
+                const added = AdminDataManager.Gallery.add(imageData);
+                if (added) {
+                    document.getElementById('galleryForm').reset();
+                    loadGalleryImages();
+                    alert('Image added successfully!');
+                } else {
+                    alert('Error adding image.');
+                }
+            };
+            reader.readAsDataURL(file);
+            return false;
+        }
+
+        function deleteGalleryImage(imageId) {
+            if (!confirm('Delete this image?')) return;
+            
+            if (AdminDataManager.Gallery.delete(imageId)) {
+                loadGalleryImages();
+                alert('Image deleted successfully!');
+            } else {
+                alert('Error deleting image.');
+            }
+        }
+
+        // ============ NOTICE BOARD MANAGEMENT ============
+        function loadNoticeBoard() {
+            const data = AdminDataManager.NoticeBoard.getAll();
+            displayNoticeItems('events', data.events, '#28a745');
+            displayNoticeItems('news', data.news, '#17a2b8');
+            displayNoticeItems('reminders', data.reminders, '#ffc107');
+        }
+
+        function displayNoticeItems(category, items, color) {
+            const container = document.getElementById(category + 'List');
+            if (items.length === 0) {
+                container.innerHTML = '<p style="color: #666; font-size: 14px;">No items yet.</p>';
+                return;
+            }
+            
+            let html = '<ul style="list-style: none; padding: 0; margin: 0;">';
+            items.forEach(item => {
+                html += `
+                    <li style="background: #f8f9fa; padding: 10px; margin-bottom: 8px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="flex: 1;">${item.text}</span>
+                        <button onclick="deleteNoticeItem('${category}', ${item.id})" style="background: #dc3545; color: white; padding: 5px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px;">Delete</button>
+                    </li>
+                `;
+            });
+            html += '</ul>';
+            container.innerHTML = html;
+        }
+
+        function addNoticeItem(category) {
+            const inputMap = {
+                'events': 'newEvent',
+                'news': 'newNews',
+                'reminders': 'newReminder'
+            };
+            const input = document.getElementById(inputMap[category]);
+            const text = input.value.trim();
+            
+            if (!text) {
+                alert('Please enter text.');
+                return;
+            }
+            
+            const added = AdminDataManager.NoticeBoard.addItem(category, text);
+            if (added) {
+                input.value = '';
+                loadNoticeBoard();
+                alert('Item added successfully!');
+            } else {
+                alert('Error adding item.');
+            }
+        }
+
+        function deleteNoticeItem(category, itemId) {
+            if (!confirm('Delete this item?')) return;
+            
+            if (AdminDataManager.NoticeBoard.deleteItem(category, itemId)) {
+                loadNoticeBoard();
+                alert('Item deleted successfully!');
+            } else {
+                alert('Error deleting item.');
+            }
+        }
+
+        // ============ UNIFORM SHOP MANAGEMENT ============
+        function loadUniformItems() {
+            const data = AdminDataManager.UniformShop.getAll();
+            const container = document.getElementById('uniformItemsList');
+            
+            let html = '';
+            
+            // Boys Section
+            html += '<div style="margin-bottom: 30px;"><h4 style="color: #000080; border-bottom: 2px solid #000080; padding-bottom: 10px;">Boys Uniforms</h4>';
+            html += generateUniformSection('boys', 'summer', data.boys.summer, 'Summer');
+            html += generateUniformSection('boys', 'winter', data.boys.winter, 'Winter');
+            html += generateUniformSection('boys', 'sports', data.boys.sports, 'Sports');
+            html += '</div>';
+            
+            // Girls Section
+            html += '<div style="margin-bottom: 30px;"><h4 style="color: #000080; border-bottom: 2px solid #000080; padding-bottom: 10px;">Girls Uniforms</h4>';
+            html += generateUniformSection('girls', 'summer', data.girls.summer, 'Summer');
+            html += generateUniformSection('girls', 'winter', data.girls.winter, 'Winter');
+            html += generateUniformSection('girls', 'sports', data.girls.sports, 'Sports');
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+
+        function generateUniformSection(gender, category, items, title) {
+            let html = `<div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <h5 style="color: #000080; margin-top: 0;">${title} Uniform</h5>
+                <ul style="list-style: none; padding: 0; margin: 0;">`;
+            
+            items.forEach(item => {
+                html += `
+                    <li style="background: white; padding: 10px; margin-bottom: 8px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>${item.name}</strong> - R${item.price}</span>
+                        <button onclick="deleteUniformItem('${gender}', '${category}', ${item.id})" style="background: #dc3545; color: white; padding: 5px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Delete</button>
+                    </li>
+                `;
+            });
+            
+            html += '</ul></div>';
+            return html;
+        }
+
+        function addUniformItem(event) {
+            event.preventDefault();
+            const gender = document.getElementById('uniformGender').value;
+            const category = document.getElementById('uniformCategory').value;
+            const name = document.getElementById('uniformName').value;
+            const price = parseInt(document.getElementById('uniformPrice').value);
+            
+            const itemData = { name, price };
+            const added = AdminDataManager.UniformShop.addItem(gender, category, itemData);
+            
+            if (added) {
+                document.getElementById('uniformForm').reset();
+                loadUniformItems();
+                alert('Uniform item added successfully!');
+            } else {
+                alert('Error adding uniform item.');
+            }
+            return false;
+        }
+
+        function deleteUniformItem(gender, category, itemId) {
+            if (!confirm('Delete this uniform item?')) return;
+            
+            if (AdminDataManager.UniformShop.deleteItem(gender, category, itemId)) {
+                loadUniformItems();
+                alert('Uniform item deleted successfully!');
+            } else {
+                alert('Error deleting uniform item.');
+            }
+        }
+
+        // Load files when page loads
+        window.addEventListener('load', function() {
+            if (document.getElementById('adminContent').style.display === 'block') {
+                displayFiles();
+            }
+        });
+    </script>
+</body>
+</html>

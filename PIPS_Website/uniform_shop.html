@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/admin-data-manager.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+     <!-- Navigation Bar -->
+    <div style="margin-top: 120px; text-align: center; background: #f9f9f9; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: inline-block;">
+         <li style="display: inline; margin: 0 10px;"><a href="index.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Home</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="about.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">About Us </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="contact.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Contact </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="gallery.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Gallery</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="resources.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Resources </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="admissions.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Admissions </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="notice_board.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Notice Board</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="enquiry.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Enquiries </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="uniform_shop.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Uniform Shop</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="volunteer.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Volunteers & Sponsors</a></li>
+        </ul>
+    </div>    
+    <!-- Page Content -->
+    <div style="height:1500px; background-color: #000080(233, 236, 237);">
+      <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+      <img src="_images\logo.jpg" alt="logo" style="height: auto; max-height: 50px; width: auto; max-width: 80px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);">
+        <h2>Uniform Shop</h2>
+      </div>
+
+     <div style="padding-top: 80px;">
+     
+     <!-- Boys Uniform Section -->
+     <div id="boysUniforms" style="background: #f9f9f9; padding: 20px; margin: 20px; border-radius: 8px; border-left: 5px solid #000080;">
+       <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+         <h2 style="color: #FFD700; margin: 0;">Boys Uniforms</h2>
+       </div>
+       <div id="boysUniformContent">Loading...</div>
+     </div>
+
+     <!-- Girls Uniform Section -->
+     <div id="girlsUniforms" style="background: #f9f9f9; padding: 20px; margin: 20px; border-radius: 8px; border-left: 5px solid #000080;">
+       <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+         <h2 style="color: #FFD700; margin: 0;">Girls Uniforms</h2>
+       </div>
+       <div id="girlsUniformContent">Loading...</div>
+     </div>
+     </div>
+    </div>
+    <div>
+    
+     <!-- Footer -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; color: #000000; text-align: center; padding: 10px 0; z-index: 998; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);">
+     <hr style="margin: 0; border-color: #ffffff;"></hr>
+     <footer>
+        <p style="margin: 5px 0;">&copy; 2025 Pinetown Independent Primary School. All rights reserved.</p>
+      </footer>   
+     </div>
+
+<script>
+// Load uniform shop data from AdminDataManager
+document.addEventListener('DOMContentLoaded', function() {
+    const uniformData = AdminDataManager.UniformShop.getAll();
+    
+    // Function to generate uniform category HTML
+    function generateCategoryHTML(items, categoryName) {
+        if (items.length === 0) {
+            return `<div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <h3 style="color: #000080; margin-top: 0;">${categoryName} Uniform</h3>
+                <p style="color: #666;">No items available.</p>
+            </div>`;
+        }
+        
+        let html = `<div style="background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3 style="color: #000080; margin-top: 0;">${categoryName} Uniform</h3>
+            <ul>`;
+        
+        items.forEach(item => {
+            html += `<li>${item.name} - R${item.price}</li>`;
+        });
+        
+        html += '</ul></div>';
+        return html;
+    }
+    
+    // Load Boys Uniforms
+    const boysHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+            ${generateCategoryHTML(uniformData.boys.summer, 'Summer')}
+            ${generateCategoryHTML(uniformData.boys.winter, 'Winter')}
+            ${generateCategoryHTML(uniformData.boys.sports, 'Sports')}
+        </div>
+    `;
+    document.getElementById('boysUniformContent').innerHTML = boysHTML;
+    
+    // Load Girls Uniforms
+    const girlsHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+            ${generateCategoryHTML(uniformData.girls.summer, 'Summer')}
+            ${generateCategoryHTML(uniformData.girls.winter, 'Winter')}
+            ${generateCategoryHTML(uniformData.girls.sports, 'Sports')}
+        </div>
+    `;
+    document.getElementById('girlsUniformContent').innerHTML = girlsHTML;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/search.js"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/tab.js"></script>
+</head>
+<body>
+     <!-- Navigation Bar -->
+    <div style="margin-top: 120px; text-align: center; background: #f9f9f9; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: inline-block;">
+         <li style="display: inline; margin: 0 10px;"><a href="index.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Home</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="about.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">About Us </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="contact.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Contact</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="gallery.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Gallery</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="resources.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Resources </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="admissions.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Admissions </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="notice_board.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Notice Board</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="enquiry.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Enquiries </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="uniform_shop.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Uniform Shop</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="volunteer.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Volunteers & Sponsors</a></li>
+        </ul>
+    </div>    
+    <!-- Page Content -->
+  <div style="min-height: 100vh; background-color: #f8f9fa; padding-bottom: 80px;">
+    <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+       <img src="_images/logo.jpg" alt="logo" style="height: 45px; width: auto; max-width: 75px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); object-fit: contain;">
+      <h2 style="color: #FFD700; margin: 0; font-size: clamp(1.2rem, 4vw, 2rem);">Vision and Mission</h2>
+    </div>
+    
+    <!-- Content Container -->
+    <div style="max-width: 1200px; margin: 0 auto; padding: 100px 20px 20px; box-sizing: border-box;">
+     <div style="background: #000080; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
+       <h2 style="color: #FFD700; margin: 0;">Vision</h2>
+     </div>
+     
+     <div style="background: #ffffff; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+       <p style="line-height: 1.6; margin-bottom: 15px;">At Pinetown Independent Primary School we strive to embed our motto "Achieving Excellence Together" in all that we do. Our school's vision is to create an inner-city school where every child is valued and receives a high-quality education in a welcoming and safe environment.</p>
+       <p style="line-height: 1.6; margin-bottom: 15px;">We aspire for all our children to become confident, happy and caring individuals who achieve personal success and develop a love of learning and of life.</p>
+       <p style="line-height: 1.6;">Our school values every child and our vision further extends to work together with parents and community members to ensure that each child feels proud of who they are and of their achievements.</p>
+     </div>
+     <div style="background: #000080; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
+       <h2 style="color: #FFD700; margin: 0;">Mission</h2>
+     </div>
+     
+     <div style="background: #ffffff; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+       <p style="line-height: 1.6; margin-bottom: 15px;">Our mission is to be an outstanding and peaceful institution, which provides learning for life and addresses the changes in the educational system effectively.</p>
+       
+       <p style="line-height: 1.6; margin-bottom: 15px; font-weight: bold;">In attempting to realise the above, we pledge to:</p>
+       
+       <ul style="list-style-type: disc; padding-left: 20px; line-height: 1.8;">
+         <li>Ensure excellence in teaching and learning by creating an environment for positive learning.</li>
+         <li>Keep abreast of new developments in the curriculum in order to transfer content to our pupils and to maintain educational excellence.</li>
+         <li>Promote an attitude of care, tolerance, trust and respect among the learners.</li>
+         <li>Maintain excellent facilities and an environment of quality.</li>
+         <li>Maintain as low a pupil/teacher ratio as possible.</li>
+         <li>Promote, both individually and collectively, the professional and personal development of teachers through staff development programmes.</li>
+         <li>Uphold the provisions as contained in the Constitution of South Africa to particularly enhance peaceful co-existence within our school and community.</li>
+         <li>Equip children with skills and positive attitudes to become:
+           <ul style="list-style-type: circle; padding-left: 20px; margin-top: 10px;">
+             <li>Successful learners where all contributions are valued.</li>
+             <li>Responsible citizens who are able to contribute to society with compassion, knowledge and wisdom.</li>
+             <li>Creative and independent thinkers who are able to solve problems and make informed decisions.</li>
+             <li>Reflective individuals, able to face the future as lifelong learners within an ever-changing world.</li>
+           </ul>
+         </li>
+       </ul>
+       
+       <p style="line-height: 1.6; margin-top: 20px;">We are and will remain firmly committed to the above principles and will seek to ensure that these ideals may live within us as well as within our communities.</p>
+     </div>
+     
+     <!-- Grade Levels with Tabs -->
+     <div style="background: #ffffff; padding: 30px; margin: 20px 0; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+       <h3 style="color: #000080; margin-bottom: 25px; text-align: center; font-size: 2rem;">📚 Grade Levels & Subjects</h3>
+       <div style="width: 80px; height: 4px; background: #FFD700; margin: 0 auto 30px; border-radius: 2px;"></div>
+       
+       <!-- Tab Navigation -->
+       <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; margin-bottom: 30px; border-bottom: 2px solid #f0f0f0; padding-bottom: 0;">
+         <button id="tab-grade-1" class="grade-tab" onclick="showTab('grade-1')" style="
+           background: #000080; color: #FFD700; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid #FFD700; outline: none;
+         " tabindex="0">Grade 1</button>
+         
+         <button id="tab-grade-2" class="grade-tab" onclick="showTab('grade-2')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 2</button>
+         
+         <button id="tab-grade-3" class="grade-tab" onclick="showTab('grade-3')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 3</button>
+         
+         <button id="tab-grade-4" class="grade-tab" onclick="showTab('grade-4')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 4</button>
+         
+         <button id="tab-grade-5" class="grade-tab" onclick="showTab('grade-5')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 5</button>
+         
+         <button id="tab-grade-6" class="grade-tab" onclick="showTab('grade-6')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 6</button>
+         
+         <button id="tab-grade-7" class="grade-tab" onclick="showTab('grade-7')" style="
+           background: #f8f9fa; color: #000080; border: none; padding: 12px 20px; 
+           border-radius: 8px 8px 0 0; cursor: pointer; font-size: 1rem; font-weight: bold; 
+           transition: all 0.3s ease; border-bottom: 3px solid transparent; outline: none;
+         " tabindex="0">Grade 7</button>
+       </div>
+       
+       <!-- Tab Content Areas -->
+       <div style="min-height: 400px; background: #fafafa; border-radius: 12px; padding: 25px;">
+         
+         <!-- Grade 1 Content -->
+         <div id="content-grade-1" class="grade-content" style="display: block;">
+           <div style="margin-bottom: 30px;">
+             <h4 style="color: #000080; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.3rem;">
+               <span style="background: #000080; color: #FFD700; padding: 8px 12px; border-radius: 50%; font-size: 1rem;">🎯</span>
+               Core Subjects
+             </h4>
+             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+               <div class="subject-card" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 20px; border-radius: 12px; border-left: 5px solid #000080; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(0,0,128,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.1)'">
+                 <div style="font-weight: bold; color: #333; font-size: 1.1rem; margin-bottom: 5px;">📖 English Home Language</div>
+                 <div style="color: #666; font-size: 0.9rem;">Essential curriculum subject</div>
+               </div>
+               <div class="subject-card" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 20px; border-radius: 12px; border-left: 5px solid #000080; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(0,0,128,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.1)'">
+                 <div style="font-weight: bold; color: #333; font-size: 1.1rem; margin-bottom: 5px;">📚 IsiZulu First Additional</div>
+                 <div style="color: #666; font-size: 0.9rem;">Essential curriculum subject</div>
+               </div>
+               <div class="subject-card" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 20px; border-radius: 12px; border-left: 5px solid #000080; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(0,0,128,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.1)'">
+                 <div style="font-weight: bold; color: #333; font-size: 1.1rem; margin-bottom: 5px;">🔢 Mathematics</div>
+                 <div style="color: #666; font-size: 0.9rem;">Essential curriculum subject</div>
+               </div>
+               <div class="subject-card" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 20px; border-radius: 12px; border-left: 5px solid #000080; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(0,0,128,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.1)'">
+                 <div style="font-weight: bold; color: #333; font-size: 1.1rem; margin-bottom: 5px;">� Life Skills</div>
+                 <div style="color: #666; font-size: 0.9rem;">Essential curriculum subject</div>
+               </div>
+             </div>
+           </div>
+         </div>
+         
+         <!-- Other grade contents will be generated by JavaScript -->
+         <div id="content-grade-2" class="grade-content" style="display: none;"></div>
+         <div id="content-grade-3" class="grade-content" style="display: none;"></div>
+         <div id="content-grade-4" class="grade-content" style="display: none;"></div>
+         <div id="content-grade-5" class="grade-content" style="display: none;"></div>
+         <div id="content-grade-6" class="grade-content" style="display: none;"></div>
+         <div id="content-grade-7" class="grade-content" style="display: none;"></div>
+         
+       </div>
+     </div>
+       
+       <div style="margin-top: 30px;">
+         <h3 style="color: #000080; margin-bottom: 15px;">Find Us</h3>
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3461.667764906368!2d30.857284975335787!3d-29.816141275039367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6fe67b5be9e57%3A0x3132f443a1106c04!2s37%20Hill%20St%2C%20Pinetown%2C%20Durban%2C%203610%2C%20South%20Africa!5e0!3m2!1sen!2snl!4v1755690937626!5m2!1sen!2snl" style="border:0; width: 100%; height: 300px; border-radius: 8px; max-width: 600px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+         <p style="margin-top: 15px; font-weight: bold; color: #000080;">Pinetown Independent Primary School</p>
+         <p style="color: #666;">37 Hill Street, Pinetown, 3610, South Africa</p>
+       </div>
+     </div>
+    </div>
+   </div>
+    <!-- Footer -->
+     <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; color: #000000; text-align: center; padding: 10px 0; z-index: 998; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);">
+     <hr style="margin: 0; border-color: #ffffff;"></hr>
+     <footer>
+        <p style="margin: 5px 0;">&copy; 2025 Pinetown Independent Primary School. All rights reserved.</p>
+      </footer>   
+     </div>
+
+<script>
+// Initialize tabs and populate content when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Populate content for grades 2-7
+  const grades = ['grade-2', 'grade-3', 'grade-4', 'grade-5', 'grade-6', 'grade-7'];
+  
+  grades.forEach(gradeId => {
+    const contentDiv = document.getElementById(`content-${gradeId}`);
+    const gradeData = window.gradeTabsData ? window.gradeTabsData[gradeId] : getGradeData(gradeId);
+    
+    if (contentDiv && gradeData) {
+      contentDiv.innerHTML = generateSubjectsHTML(gradeData);
+    }
+  });
+  
+  console.log('📚 Grade tabs content populated');
+});
+
+// Fallback grade data if tab.js hasn't loaded yet
+function getGradeData(gradeId) {
+  const gradeSubjects = {
+    'grade-2': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '� Life Skills']
+    },
+    'grade-3': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '� Life Skills']
+    },
+    'grade-4': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '🔬 Natural Sciences and Technology', '🌍 Social Sciences (History & Geography)', '🌟 Life Skills']
+    },
+    'grade-5': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '🔬 Natural Sciences and Technology', '🌍 Social Sciences (History & Geography)', '🌟 Life Skills']
+    },
+    'grade-6': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '🔬 Natural Sciences and Technology', '🌍 Social Sciences (History & Geography)', '🌟 Life Skills']
+    },
+    'grade-7': {
+      core: ['📖 English Home Language', '📚 IsiZulu First Additional', '🔢 Mathematics', '🔬 Natural Sciences and Technology', '🌍 Social Sciences (History & Geography)', '🗣️ Life Orientation', '🎨 Creative Arts', '💼 Economic and Management Sciences']
+    }
+  };
+  
+  return gradeSubjects[gradeId];
+}
+
+// Generate subjects HTML (fallback if tab.js function not available)
+function generateSubjectsHTML(gradeData) {
+  let html = '';
+  
+  // Core subjects section
+  html += `
+    <div style="margin-bottom: 30px;">
+      <h4 style="color: #000080; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.3rem;">
+        <span style="background: #000080; color: #FFD700; padding: 8px 12px; border-radius: 50%; font-size: 1rem;">🎯</span>
+        Core Subjects
+      </h4>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+  `;
+  
+  gradeData.core.forEach(subject => {
+    html += `
+      <div class="subject-card" style="
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 5px solid #000080;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(0,0,128,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(0,0,0,0.1)'">
+        <div style="font-weight: bold; color: #333; font-size: 1.1rem; margin-bottom: 5px;">
+          ${subject}
+        </div>
+        <div style="color: #666; font-size: 0.9rem;">
+          Essential curriculum subject
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `
+      </div>
+    </div>
+  `;
+  
+  return html;
+}
+</script>
+
+</body>
+</html>

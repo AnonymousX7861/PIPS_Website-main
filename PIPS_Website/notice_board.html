@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Board - Pinetown Independent Primary School</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/admin-data-manager.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/post.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ajax.js"></script>
+    <style>
+        .modal-trigger-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .modal-trigger-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        .events-btn:hover { box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4) !important; }
+        .news-btn:hover { box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4) !important; }
+        .reminders-btn:hover { box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4) !important; }
+    </style>
+</head>
+<body>
+     <!-- Navigation Bar -->
+    <div style="margin-top: 120px; text-align: center; background: #f9f9f9; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: inline-block;">
+         <li style="display: inline; margin: 0 10px;"><a href="index.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Home</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="about.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">About Us </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="contact.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Contact</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="gallery.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Gallery</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="resources.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Resources </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="admissions.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Admissions </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="notice_board.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Notice Board</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="enquiry.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Enquiries </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="uniform_shop.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Uniform Shop</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="volunteer.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Volunteers & Sponsors</a></li>
+        </ul>
+    </div>     
+    <!-- Page Content -->
+    <div style="height:1500px; background-color: #000080(230, 234, 235);">
+     <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+       <img src="_images\logo.jpg" alt="logo" style="height: auto; max-height: 50px; width: auto; max-width: 80px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);">
+        <h2>Notice Board</h2>
+     </div>
+     <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+         <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 30px;">Stay updated with the latest announcements, circulars and important information.</p>
+         
+         <!-- Quick Access Modal Buttons -->
+         <div style="background: #ffffff; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+             <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                 <h3 style="color: #FFD700; margin: 0;">Quick Access</h3>
+             </div>
+             <p style="color: #666; margin-bottom: 20px;">Click below to view specific updates in a popup window:</p>
+             <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                 <button onclick="showNotification('events')" class="modal-trigger-btn events-btn" style="background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; box-shadow: 0 3px 8px rgba(40, 167, 69, 0.3); display: flex; align-items: center; gap: 8px;">
+                     📅 <span>View Events</span>
+                 </button>
+                 <button onclick="showNotification('news')" class="modal-trigger-btn news-btn" style="background: #17a2b8; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; box-shadow: 0 3px 8px rgba(23, 162, 184, 0.3); display: flex; align-items: center; gap: 8px;">
+                     📰 <span>Latest News</span>
+                 </button>
+                 <button onclick="showNotification('reminders')" class="modal-trigger-btn reminders-btn" style="background: #ffc107; color: #000; padding: 12px 24px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; box-shadow: 0 3px 8px rgba(255, 193, 7, 0.3); display: flex; align-items: center; gap: 8px;">
+                     ⚠️ <span>Reminders</span>
+                 </button>
+             </div>
+         </div>
+         
+         <!-- Upcoming Events Section -->
+         <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 5px solid #000080;">
+        <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+          <h2 style="color: #FFD700; margin: 0;">Upcoming Events</h2>
+        </div>
+        <ul id="eventsList" style="list-style-type: disc; padding-left: 20px;">
+          <li>Loading...</li>
+        </ul>
+      </div>
+
+      <!-- News Section -->
+      <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 5px solid #000080;">
+        <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+          <h2 style="color: #FFD700; margin: 0;">News</h2>
+        </div>
+        <ul id="newsList" style="list-style-type: disc; padding-left: 20px;">
+          <li>Loading...</li>
+        </ul>
+      </div>
+
+      <!-- Reminders Section -->
+      <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 5px solid #000080;">
+        <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+          <h2 style="color: #FFD700; margin: 0;">Reminders</h2>
+        </div>
+        <ul id="remindersList" style="list-style-type: disc; padding-left: 20px;">
+          <li>Loading...</li>
+        </ul>
+      </div>
+     </div>
+    <!--    Footer -->
+    <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; color: #000000; text-align: center; padding: 10px 0; z-index: 998; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);">
+     <hr style="margin: 0; border-color: #ffffff;"></hr>
+     <footer>
+        <p style="margin: 5px 0;">&copy; 2025 Pinetown Independent Primary School. All rights reserved.</p>
+      </footer>   
+     </div>
+     
+     <script>
+        // Load notice board data from AdminDataManager
+        document.addEventListener('DOMContentLoaded', function() {
+            const noticeData = AdminDataManager.NoticeBoard.getAll();
+            
+            // Load events
+            const eventsList = document.getElementById('eventsList');
+            if (noticeData.events.length === 0) {
+                eventsList.innerHTML = '<li>No events at this time.</li>';
+            } else {
+                eventsList.innerHTML = noticeData.events.map(item => `<li>${item.text}</li>`).join('');
+            }
+            
+            // Load news
+            const newsList = document.getElementById('newsList');
+            if (noticeData.news.length === 0) {
+                newsList.innerHTML = '<li>No news at this time.</li>';
+            } else {
+                newsList.innerHTML = noticeData.news.map(item => `<li>${item.text}</li>`).join('');
+            }
+            
+            // Load reminders
+            const remindersList = document.getElementById('remindersList');
+            if (noticeData.reminders.length === 0) {
+                remindersList.innerHTML = '<li>No reminders at this time.</li>';
+            } else {
+                remindersList.innerHTML = noticeData.reminders.map(item => `<li>${item.text}</li>`).join('');
+            }
+        });
+     </script>
+</body>
+</html>

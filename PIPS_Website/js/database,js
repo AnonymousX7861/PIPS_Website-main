@@ -1,0 +1,107 @@
+// Database for storing uploaded files
+// Using localStorage as the storage mechanism
+
+const FileDatabase = {
+    // Storage key
+    storageKey: 'schoolUploadedFiles',
+
+    // Get all files
+    getAllFiles: function() {
+        try {
+            const files = localStorage.getItem(this.storageKey);
+            return files ? JSON.parse(files) : [];
+        } catch (error) {
+            console.error('Error reading files from database:', error);
+            return [];
+        }
+    },
+
+    // Add a new file
+    addFile: function(fileData) {
+        try {
+            const files = this.getAllFiles();
+            const newFile = {
+                id: Date.now(),
+                name: fileData.name,
+                category: fileData.category,
+                originalName: fileData.originalName,
+                type: fileData.type,
+                size: fileData.size,
+                data: fileData.data,
+                uploadDate: new Date().toLocaleString(),
+                uploadedBy: 'admin'
+            };
+            files.push(newFile);
+            localStorage.setItem(this.storageKey, JSON.stringify(files));
+            return newFile;
+        } catch (error) {
+            console.error('Error adding file to database:', error);
+            return null;
+        }
+    },
+
+    // Get file by ID
+    getFileById: function(fileId) {
+        const files = this.getAllFiles();
+        return files.find(file => file.id === fileId);
+    },
+
+    // Delete file by ID
+    deleteFile: function(fileId) {
+        try {
+            let files = this.getAllFiles();
+            files = files.filter(file => file.id !== fileId);
+            localStorage.setItem(this.storageKey, JSON.stringify(files));
+            return true;
+        } catch (error) {
+            console.error('Error deleting file from database:', error);
+            return false;
+        }
+    },
+
+    // Get files by category
+    getFilesByCategory: function(category) {
+        const files = this.getAllFiles();
+        return files.filter(file => file.category === category);
+    },
+
+    // Get all categories
+    getCategories: function() {
+        const files = this.getAllFiles();
+        const categories = {};
+        files.forEach(file => {
+            if (!categories[file.category]) {
+                categories[file.category] = [];
+            }
+            categories[file.category].push(file);
+        });
+        return categories;
+    },
+
+    // Clear all files (use with caution)
+    clearAll: function() {
+        try {
+            localStorage.removeItem(this.storageKey);
+            return true;
+        } catch (error) {
+            console.error('Error clearing database:', error);
+            return false;
+        }
+    },
+
+    // Get total number of files
+    getFileCount: function() {
+        return this.getAllFiles().length;
+    },
+
+    // Get total storage size
+    getTotalSize: function() {
+        const files = this.getAllFiles();
+        return files.reduce((total, file) => total + file.size, 0);
+    }
+};
+
+// Export for use in other scripts
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = FileDatabase;
+}

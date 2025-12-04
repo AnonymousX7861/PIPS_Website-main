@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiries & FAQ - Pinetown Independent Primary School</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/modal.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/ajax.js"></script>
+</head>
+<body>
+  <!-- Navigation Bar -->
+    <div style="margin-top: 120px; text-align: center; background: #f9f9f9; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <ul style="list-style: none; padding: 0; margin: 0; display: inline-block;">
+         <li style="display: inline; margin: 0 10px;"><a href="index.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Home</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="about.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">About Us </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="contact.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Contact</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="gallery.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Gallery</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="resources.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Resources </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="admissions.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Admissions </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="notice_board.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Notice Board</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="enquiry.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Enquiries </a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="uniform_shop.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Uniform Shop</a></li>
+         <li style="display: inline; margin: 0 10px;"><a href="volunteer.html" style="text-decoration: none; color: #000080; font-weight: bold; padding: 8px 15px; border-radius: 5px; transition: background 0.3s;">Volunteers & Sponsors</a></li>
+        </ul>
+    </div>    
+    <!-- Page Content -->
+    <div style="padding-top: 80px; text-align: center; min-height: 100vh; background-color: #f8f9fa;">
+        <div style="background: #000080; padding: 15px 10px; border-radius: 0; position: fixed; top: 0px; left: 0; width: 100%; z-index: 999; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; box-sizing: border-box;"> 
+            <img src="_images\logo.jpg" alt="logo" style="height: auto; max-height: 50px; width: auto; max-width: 80px; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);">
+            <h2 style="color: #FFD700; margin: 0;">Enquiries & FAQ</h2>
+        </div>
+        
+        <div style="max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 120px;">
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 40px;">Have questions? Find answers in our FAQ section below or contact us directly.</p>
+            
+            <!-- FAQ Section -->
+            <div style="background: #ffffff; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                    <h2 style="color: #FFD700; margin: 0;">Frequently Asked Questions</h2>
+                </div>
+                
+                <style>
+                    .faq-item {
+                        margin-bottom: 15px;
+                        border: 1px solid #e0e0e0;
+                        border-radius: 8px;
+                        overflow: hidden;
+                        background: #ffffff;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
+                    
+                    .faq-question {
+                        background: #f8f9fa;
+                        color: #000080;
+                        padding: 15px 50px 15px 20px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                        margin: 0;
+                        transition: all 0.3s ease;
+                        position: relative;
+                        border: none;
+                        width: 100%;
+                        text-align: left;
+                        display: block;
+                    }
+                    
+                    .faq-question:hover {
+                        background: #e9ecef;
+                        color: #000066;
+                    }
+                    
+                    .faq-question::after {
+                        content: '+';
+                        position: absolute;
+                        right: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                        transition: all 0.3s ease;
+                        color: #000080;
+                    }
+                    
+                    .faq-question.active {
+                        background: #000080;
+                        color: #FFD700;
+                    }
+                    
+                    .faq-question.active::after {
+                        content: '−';
+                        color: #FFD700;
+                        transform: translateY(-50%) rotate(180deg);
+                    }
+                    
+                    .faq-answer {
+                        background: #ffffff;
+                        padding: 0 20px;
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: all 0.4s ease;
+                        color: #555;
+                        line-height: 1.6;
+                        border-top: none;
+                    }
+                    
+                    .faq-answer.active {
+                        max-height: 800px;
+                        padding: 20px;
+                        border-top: 1px solid #e0e0e0;
+                    }
+                </style>
+                
+                <div class="faq-container">
+                    <!-- FAQ 1: About the School -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What makes Pinetown Independent Primary School special?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Pinetown Independent Primary School is committed to providing excellence in education with a focus on holistic child development. We offer small class sizes, dedicated teachers, modern facilities, and a nurturing environment where every child can thrive. Our school emphasizes academic achievement alongside character development, creativity, and critical thinking skills.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 2: Registration Process -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How do I register my child at the school?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Registration Process:</strong></p>
+                            <ol>
+                                <li>Complete the application form (available at the school office or download from our website)</li>
+                                <li>Submit required documents: birth certificate, immunization records, previous school reports (if applicable)</li>
+                                <li>Pay the non-refundable application fee</li>
+                                <li>Attend a parent interview and child assessment</li>
+                                <li>Await confirmation of acceptance</li>
+                            </ol>
+                            <p><em>We recommend starting the application process at least 3 months before the desired start date.</em></p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 3: Age Requirements -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What are the age requirements for admission?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Age Requirements by Grade:</strong></p>
+                            <ul>
+                                <li><strong>Grade 1:</strong> Children must turn 6 years old by June 30th of the admission year</li>
+                                <li><strong>Grade 2-7:</strong> Age-appropriate placement based on previous schooling and assessment</li>
+                            </ul>
+                            <p>We also consider the child's social and emotional readiness for their grade level.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 4: School Fees -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What are the school fees and payment options?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>School Fees Structure:</strong></p>
+                            <ul>
+                                <li>Application Fee: R500 (non-refundable)</li>
+                                <li>Annual School Fees: Please contact the school office for current rates</li>
+                                <li>Additional costs may include: uniforms, textbooks, stationery, and extra-curricular activities</li>
+                            </ul>
+                            <p><strong>Payment Options:</strong> Annual payment (with discount), termly payment, or monthly payment plans available.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 5: School Hours -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What are the school hours and calendar?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>School Hours:</strong></p>
+                            <ul>
+                                <li>Monday - Friday: 7:30 AM - 2:30 PM</li>
+                                <li>Gates open: 7:00 AM</li>
+                                <li>Late arrivals after 8:00 AM require office check-in</li>
+                            </ul>
+                            <p><strong>School Calendar:</strong> We follow the standard South African school calendar with four terms per year. Holiday dates and special events are communicated via our notice board and parent newsletters.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 6: Curriculum -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What curriculum does the school follow?
+                        </div>
+                        <div class="faq-answer">
+                            <p>We follow the <strong>CAPS (Curriculum and Assessment Policy Statement)</strong> curriculum as prescribed by the Department of Basic Education. Our academic program includes:</p>
+                            <ul>
+                                <li>English Home Language</li>
+                                <li>Afrikaans First Additional Language</li>
+                                <li>Mathematics</li>
+                                <li>Life Skills (including Life Orientation, Creative Arts, and Physical Education)</li>
+                                <li>Natural Sciences and Technology (Grades 4-7)</li>
+                                <li>Social Sciences (Grades 4-7)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 7: Extra-curricular Activities -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What extra-curricular activities are available?
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Sports:</strong> Soccer, netball, athletics, swimming, cricket</p>
+                            <p><strong>Cultural Activities:</strong> School choir, drama club, art classes, music lessons</p>
+                            <p><strong>Academic:</strong> Mathematics olympiad, spelling bee, science fair, debating</p>
+                            <p><strong>Special Interest:</strong> Environmental club, library monitors, student council</p>
+                            <p><em>Activities may vary by term and are subject to minimum enrollment numbers.</em></p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ 8: Transport -->
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is school transport available?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we offer school transport services to various areas around Pinetown. Transport fees are additional to school fees and vary by route. Please contact the school office for:</p>
+                            <ul>
+                                <li>Available routes and stops</li>
+                                <li>Transport fees and payment schedule</li>
+                                <li>Pick-up and drop-off times</li>
+                                <li>Transport application forms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form Section -->
+            <div style="background: #ffffff; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="background: #000080; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                    <h2 style="color: #FFD700; margin: 0;">Still Have Questions?</h2>
+                </div>
+                
+                <p style="text-align: center; color: #666; margin-bottom: 30px;">Can't find what you're looking for? Send us a message and we'll get back to you as soon as possible.</p>
+                
+                <form id="enquiry-form" class="enquiry-form" data-form-type="enquiry" style="max-width: 600px; margin: 0 auto;">
+                    <div style="margin-bottom: 20px;">
+                        <label for="name" style="display: block; margin-bottom: 8px; color: #333; font-weight: bold;">Full Name *</label>
+                        <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="email" style="display: block; margin-bottom: 8px; color: #333; font-weight: bold;">Email Address *</label>
+                        <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="phone" style="display: block; margin-bottom: 8px; color: #333; font-weight: bold;">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="subject" style="display: block; margin-bottom: 8px; color: #333; font-weight: bold;">Subject</label>
+                        <select id="subject" name="subject" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                            <option value="">Select a topic...</option>
+                            <option value="admissions">Admissions Enquiry</option>
+                            <option value="fees">School Fees</option>
+                            <option value="curriculum">Curriculum Questions</option>
+                            <option value="transport">School Transport</option>
+                            <option value="activities">Extra-curricular Activities</option>
+                            <option value="general">General Enquiry</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 30px;">
+                        <label for="message" style="display: block; margin-bottom: 8px; color: #333; font-weight: bold;">Message *</label>
+                        <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 16px; resize: vertical; box-sizing: border-box;" placeholder="Please provide details about your enquiry..."></textarea>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <input type="submit" value="Send Message" style="background: #000080; color: #FFD700; padding: 15px 30px; border: none; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    </div>
+                </form>
+                
+                <p style="text-align: center; color: #28a745; margin-top: 20px; font-style: italic;">Thank you for your enquiry. We will get back to you within 24 hours during school days.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+   <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: #ffffff; color: #000000; text-align: center; padding: 10px 0; z-index: 998; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);">
+     <hr style="margin: 0; border-color: #ffffff;"></hr>
+     <footer>
+        <p style="margin: 5px 0;">&copy; 2025 Pinetown Independent Primary School. All rights reserved.</p>
+      </footer>   
+     </div>
+</body>
+</html>
